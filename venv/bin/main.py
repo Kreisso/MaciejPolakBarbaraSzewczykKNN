@@ -1,11 +1,17 @@
 import pandas as pd
 import numpy as np
 import scipy as sp
-import KNN
-k = 3
-list = np.array()
+from KNN import KNN
 
-K1 = KNN(3, list)
+iris_test_filename = 'iris.data.test.csv'
+iris_learning_filename = 'iris.data.learning.csv'
+
+irisTest = pd.read_csv(iris_test_filename, sep=',', decimal='.', header=None, names= ['sepal_length', 'sepal_width', 'petal_length', 'petal_width','target'])
+irisLearning = pd.read_csv(iris_learning_filename, sep=',', decimal='.', header=None, names= ['sepal_length', 'sepal_width', 'petal_length', 'petal_width','target'])
+
+k = 3
+
+K1 = KNN(k,irisLearning)
 
 
 
