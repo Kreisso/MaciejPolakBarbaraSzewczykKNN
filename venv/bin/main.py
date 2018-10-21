@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-import scipy as sp
+
 from KNN import KNN
 
 iris_test_filename = 'iris.data.test.csv'
@@ -12,6 +12,8 @@ irisLearning = pd.read_csv(iris_learning_filename, sep=',', decimal='.', header=
 k = 3
 
 K1 = KNN(k,irisLearning)
+
+
 
 
 
