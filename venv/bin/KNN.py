@@ -13,12 +13,12 @@ class KNN:
         self.vectors = pdist(self.properties, 'euclidean')
         #print(squareform(self.vectors))
 
-
     def predict(self, unTagsList):
         newTags = []
         nearestNeighbors = []
         for x in range(len(unTagsList)):
             distances = []
+
             for y in range(len(self.list)):
                 dist = euclidean(self.properties[y], unTagsList[x] )
                 distances.append([dist, [self.targets[y]]])
@@ -38,31 +38,24 @@ class KNN:
                 if l > maxL:
                     maxL = l
                     maxW = w
-            newTags.append(maxW)
 
+            newTags.append(maxW)
             nearestNeighbors.clear()
 
         return  np.asarray(newTags)
-
-
-
-
 
     def score(self, objectList, tagsList):
         correct = 0
         uncorrect = 0
 
         for i in range(len(objectList)):
-            print(objectList[i])
-            print(tagsList[i])
+
             if objectList[i] == tagsList[i]:
                 correct += 1
             else:
                 uncorrect +=1
 
         recognized = correct*100/len(objectList )
-
-
 
         return recognized
 
