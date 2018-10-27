@@ -11,7 +11,6 @@ class KNN:
         self.properties = self.list.iloc[:, :-1].values
         self.targets = self.list.iloc[:, 4].values
         self.vectors = pdist(self.properties, 'euclidean')
-        #print(squareform(self.vectors))
 
     def predict(self, unTagsList):
         newTags = []
