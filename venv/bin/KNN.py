@@ -1,5 +1,6 @@
 from scipy.spatial.distance import pdist, squareform
 from scipy.spatial.distance import euclidean
+import numpy as np
 import scipy as sp
 
 class KNN:
@@ -41,14 +42,28 @@ class KNN:
 
             nearestNeighbors.clear()
 
-        return  newTags
+        return  np.asarray(newTags)
 
 
 
 
 
     def score(self, objectList, tagsList):
+        correct = 0
+        uncorrect = 0
 
-        return recognize
+        for i in range(len(objectList)):
+            print(objectList[i])
+            print(tagsList[i])
+            if objectList[i] == tagsList[i]:
+                correct += 1
+            else:
+                uncorrect +=1
+
+        recognized = correct*100/len(objectList )
+
+
+
+        return recognized
 
 
