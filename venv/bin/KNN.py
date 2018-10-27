@@ -7,10 +7,8 @@ class KNN:
     def __init__(self, k, list):
         self.k = k;
         self.list = list;
-
         self.properties = self.list.iloc[:, :-1].values
         self.targets = self.list.iloc[:, 4].values
-        self.vectors = pdist(self.properties, 'euclidean')
 
     def predict(self, unTagsList):
         newTags = []
