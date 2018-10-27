@@ -42,18 +42,19 @@ class KNN:
         return  np.asarray(newTags)
 
     def score(self, objectList, tagsList):
+        recognized = self.predict(objectList)
         correct = 0
         uncorrect = 0
 
-        for i in range(len(objectList)):
+        for i in range(len(recognized)):
 
-            if objectList[i] == tagsList[i]:
+            if recognized[i] == tagsList[i]:
                 correct += 1
             else:
                 uncorrect +=1
 
-        recognized = correct*100/len(objectList )
+        result = correct*100/len(recognized )
 
-        return recognized
+        return result
 
 

@@ -14,8 +14,6 @@ k = 3
 
 K1 = KNN(k,irisLearning)
 
-recognized = K1.predict(unTagList)
-
-score = K1.score(testTargets, recognized)
+score = K1.score(unTagList, testTargets)
 
 print(score)
