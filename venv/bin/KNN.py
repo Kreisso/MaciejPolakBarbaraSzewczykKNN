@@ -4,58 +4,57 @@ import numpy as np
 import scipy as sp
 
 class KNN:
-    def __init__(self, k, learning_data):
-        self.k = k
-        self.learning_data = learning_data
-        self.properties = self.learning_data.iloc[:, :-1].values
-        self.targets = self.learning_data.iloc[:, 4].values
+    def __init__(self, k, list):
+        self.k = k;
+        self.list = list;
+        self.properties = self.list.iloc[:, :-1].values
+        self.targets = self.list.iloc[:, 4].values
 
-    def predict(self, untagged_test_data):
-        predicted_tags = []
-        nearest_neighbors = []
-        for x in range(len(untagged_test_data)):
+    def predict(self, unTagsList):
+        newTags = []
+        nearestNeighbors = []
+        for x in range(len(unTagsList)):
             distances = []
 
-            for y in range(len(self.learning_data)):
-                distance = euclidean(self.properties[y], untagged_test_data[x])
-                distances.append([distance, [self.targets[y]]])
+            for y in range(len(self.list)):
+                dist = euclidean(self.properties[y], unTagsList[x] )
+                distances.append([dist, [self.targets[y]]])
                 distances.sort()
 
             for i in range(self.k):
-                nearest_neighbors.append(distances[i])
-            nearest_neighbors.sort(key=lambda x: x[1])
+                nearestNeighbors.append(distances[i])
+            nearestNeighbors.sort(key=lambda x: x[1])
+            maxL = 0
+            maxW = nearestNeighbors[0][1]
+            for i in range(self.k):
+                w = nearestNeighbors[i][1]
+                l = 0
+                for j in range(self.k):
+                    if nearestNeighbors[j][1] == w:
+                        l += 1
+                if l > maxL:
+                    maxL = l
+                    maxW = w
 
-            predicted_tags.append(self.getDominator(nearest_neighbors))
-            nearest_neighbors.clear()
+            newTags.append(maxW)
+            nearestNeighbors.clear()
 
-        return np.asarray(predicted_tags)
+        return  np.asarray(newTags)
 
-    def getDominator(self, nearest_neighbors):
-        dominator_counter = 0
-        dominator = nearest_neighbors[0][1]
-        for i in range(self.k):
-            dominator_candidate = nearest_neighbors[i][1]
-            count = 0
-            for j in range(self.k):
-                if nearest_neighbors[j][1] == dominator_candidate:
-                    count += 1
-            if count > dominator_counter:
-                dominator_counter = count
-                dominator = dominator_candidate
-        return dominator
-
-    def score(self, untagged_test_data, test_data_targets):
-        recognized = self.predict(untagged_test_data)
+    def score(self, objectList, tagsList):
+        recognized = self.predict(objectList)
         correct = 0
-        incorrect = 0
+        uncorrect = 0
 
         for i in range(len(recognized)):
 
-            if recognized[i] == test_data_targets[i]:
+            if recognized[i] == tagsList[i]:
                 correct += 1
             else:
-                incorrect += 1
+                uncorrect +=1
 
-        result = correct*100/len(recognized)
+        result = correct*100/len(recognized )
 
         return result
+
+
