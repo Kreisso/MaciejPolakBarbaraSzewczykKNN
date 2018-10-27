@@ -1,4 +1,4 @@
-from scipy.spatial.distance import pdist
+from scipy.spatial.distance import pdist, squareform, distance
 from scipy.spatial.distance import euclidean
 import scipy as sp
 
@@ -7,29 +7,21 @@ class KNN:
         self.k = k;
         self.list = list;
 
-        self.x = self.list.iloc[:, :-1].values
-        self.y = self.list.iloc[:, 4].values
-        self.vectors = pdist(self.x, 'euclidean')
+        self.properties = self.list.iloc[:, :-1].values
+        self.targets = self.list.iloc[:, 4].values
+        self.vectors = pdist(self.properties, 'euclidean')
+        print(squareform(self.vectors))
 
 
     def predict(self, unTagsList):
+        properties = unTagsList.list.iloc[:, :-1]
 
-        # trainingSet = self.list;
-        # testInstance = unTagsList;
-        # k = self.k
-        # distances = []
-        # length = len(testInstance) - 1
-        # for x in range(len(trainingSet)):
-        #     dist = euclidean(testInstance, trainingSet[x], length)
-        #     distances.append((trainingSet[x], dist))
-        # distances.sort(key=operator.itemgetter(1))
-        # neighbors = []
-        # for x in range(k):
-        #     neighbors.append(distances[x][0])
-        # return neighbors
+        for x in properties:
+            for y in self.targets:
+                dst = []
+                dst.append(distance.euclidean(x, y))
 
-
-
+        return test
 
     def score(self, objectList, tagsList):
 
