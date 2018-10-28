@@ -14,11 +14,27 @@ class KNNTest(unittest.TestCase):
     untagged_test_data = unittest_test_data.iloc[:, :-1].values
     test_data_targets = unittest_test_data.iloc[:, 4].values
 
+    k_tab = [8, 20, 5, 12, 3, -2]
+
+    def test_init(self):
+        for i in range(len(self.k_tab)):
+            self.assertEqual(type(self.k_tab[i]), int)
+            self.assertTrue(0 <= self.k_tab[i] <= len(self.unittest_learning_data))
+        self.assertEqual(type(self.unittest_learning_data), pd.DataFrame)
+
+    def test_predict(self):
+        self.assertEqual(type(self.untagged_test_data), np.ndarray)
+
+
     def test_score(self):
-        K2 = KNN(5, self.unittest_learning_data)
-        print(K2.score(self.untagged_test_data, self.test_data_targets))
-        print(K2.predict(self.untagged_test_data))
-        self.assertEqual(75, K2.score(self.untagged_test_data, self.test_data_targets))
+        K = []
+        for i in range(len(self.k_tab)):
+            K.append(KNN(self.k_tab[i], self.unittest_learning_data))
+            print(K[i].score(self.untagged_test_data, self.test_data_targets))
+            print(K[i].predict(self.untagged_test_data))
+            self.assertEqual(type(self.untagged_test_data), np.ndarray)
+            self.assertEqual(type(self.test_data_targets), np.ndarray)
+            self.assertEqual(75, K[i].score(self.untagged_test_data, self.test_data_targets))
 
     if __name__ == '__main__':
         unittest.main()
