@@ -9,14 +9,15 @@ class KNN:
         try:
             if k > len(learning_data):
                 raise RuntimeError('K is bigger than count of data learning')
+        except Exception as e:
+            print(e)
+            sys.exit(0)
 
             self.k = k
             self.learning_data = learning_data
             self.properties = self.learning_data.iloc[:, :-1].values
             self.targets = self.learning_data.iloc[:, 4].values
-        except Exception as e:
-                print(e)
-                sys.exit(0)
+
 
     def predict(self, untagged_test_data):
         predicted_tags = []
