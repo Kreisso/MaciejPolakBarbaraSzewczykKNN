@@ -7,8 +7,8 @@ import scipy as sp
 class KNN:
     def __init__(self, k, learning_data):
         try:
-            if k > len(learning_data):
-                raise RuntimeError('K is bigger than count of data learning')
+            if 0 > k > len(learning_data):
+                raise RuntimeError('K is out of range')
         except Exception as e:
             print(e)
             sys.exit(0)
