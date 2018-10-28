@@ -13,10 +13,10 @@ class KNN:
             print(e)
             sys.exit(0)
 
-            self.k = k
-            self.learning_data = learning_data
-            self.properties = self.learning_data.iloc[:, :-1].values
-            self.targets = self.learning_data.iloc[:, 4].values
+        self.k = k
+        self.learning_data = learning_data
+        self.properties = self.learning_data.iloc[:, :-1].values
+        self.targets = self.learning_data.iloc[:, 4].values
 
 
     def predict(self, untagged_test_data):
