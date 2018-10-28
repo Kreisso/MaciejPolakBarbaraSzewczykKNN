@@ -1,14 +1,22 @@
 from scipy.spatial.distance import pdist, squareform
 from scipy.spatial.distance import euclidean
+import sys
 import numpy as np
 import scipy as sp
 
 class KNN:
     def __init__(self, k, learning_data):
-        self.k = k
-        self.learning_data = learning_data
-        self.properties = self.learning_data.iloc[:, :-1].values
-        self.targets = self.learning_data.iloc[:, 4].values
+        try:
+            if k > len(learning_data):
+                raise RuntimeError('K is bigger than count of data learning')
+
+            self.k = k
+            self.learning_data = learning_data
+            self.properties = self.learning_data.iloc[:, :-1].values
+            self.targets = self.learning_data.iloc[:, 4].values
+        except Exception as e:
+                print(e)
+                sys.exit(0)
 
     def predict(self, untagged_test_data):
         predicted_tags = []
